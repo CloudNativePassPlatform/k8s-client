@@ -1,0 +1,26 @@
+{
+    "name": "CloudNativePassPlatform/k8s-client",
+    "description": "PHP 的 Kubernetes Client",
+    "keywords": ["Kubernetes","Client", "PHP", "SWOOLE"],
+    "homepage": "https://github.com/CloudNativePassPlatform/k8s-client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "戒尺",
+            "email": "itxiao6@qq.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12",
+        "swoole/ide-helper": "^4.5",
+        "symfony/var-dumper": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Itxiao6\\Session\\": "src/"
+        }
+    }
+}
