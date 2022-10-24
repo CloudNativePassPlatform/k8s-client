@@ -1,5 +1,5 @@
 {
-    "name": "CloudNativePassPlatform/k8s-client",
+    "name": "cnpp/k8s-client",
     "description": "PHP 的 Kubernetes Client",
     "keywords": ["Kubernetes","Client", "PHP", "SWOOLE"],
     "homepage": "https://github.com/CloudNativePassPlatform/k8s-client",
