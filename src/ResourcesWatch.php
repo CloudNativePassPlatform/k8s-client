@@ -92,8 +92,10 @@ class ResourcesWatch
            }
         });
         go(function () use ($callback) {
-            while (($response = $this->client->read()) instanceof Response) {
-                $callback($response);
+            while (true) {
+                if(($response = $this->client->read()) instanceof Response){
+                    $callback($response);
+                }
             }
         });
     }
