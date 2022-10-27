@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Itxiao6\\Session\\": "src/"
+            "CNPP\\K8sClient\\": "src/"
         }
     }
 }

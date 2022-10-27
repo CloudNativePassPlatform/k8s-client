@@ -1,6 +1,6 @@
 <?php
 
-namespace Pipeline\Service;
+namespace CNPP\K8sClient;
 
 use GuzzleHttp\Exception\ClientException;
 use Swoole\Coroutine\Http2\Client;

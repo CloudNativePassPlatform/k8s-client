@@ -1,6 +1,6 @@
 <?php
 
-namespace Pipeline\Service;
+namespace CNPP\K8sClient;
 
 
 use GuzzleHttp\Client;
