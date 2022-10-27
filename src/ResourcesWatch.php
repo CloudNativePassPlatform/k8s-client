@@ -29,10 +29,12 @@ class ResourcesWatch
      * @var string
      */
     protected $token;
+
     /**
+     * ResourcesWatch constructor.
      * @param string $domain
      * @param int $port
-     * @param bool $sll
+     * @param string $token
      */
     public function __construct(string $domain, int $port, string $token)
     {
@@ -47,6 +49,15 @@ class ResourcesWatch
         $this->client->connect();
     }
 
+    /**
+     * 监听资源
+     * @param string $api
+     * @param \Closure $callback
+     * @param array $param
+     * @param string|null $resourceVersion
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Throwable
+     */
     public function watch(string $api, $callback = null, array $param = [],string $resourceVersion=null)
     {
         if($resourceVersion ===null){
@@ -98,10 +109,11 @@ class ResourcesWatch
             if(($response = $this->client->read()) instanceof Response && strlen(strval($response->data))>=1){
                 try{
                     $callback($response);
-                }catch (ExitWatchException $exitWatchException){
-                    break;
                 }catch (\Throwable $throwable){
-                    echo "WatchCallback,异常:{$throwable->getMessage()}\n";
+                    if(get_class($throwable) == ExitWatchException::class){
+                        break;
+                    }
+                    throw $throwable;
                 }
             }
         }
