@@ -2,6 +2,7 @@
 
 namespace CNPP\K8sClient;
 
+use CNPP\K8sClient\Exception\ExitWatchException;
 use GuzzleHttp\Exception\ClientException;
 use Swoole\Coroutine\Http2\Client;
 use Swoole\Http2\Request;
@@ -91,12 +92,16 @@ class ResourcesWatch
                $this->client->send($request);
            }
         });
-        go(function () use ($callback) {
-            while (true) {
-                if(($response = $this->client->read()) instanceof Response){
+        while (true) {
+            if(($response = $this->client->read()) instanceof Response){
+                try{
                     $callback($response);
+                }catch (ExitWatchException $exitWatchException){
+                    break;
+                }catch (\Throwable $throwable){
+                    echo "WatchCallback,异常:{$throwable->getMessage()}\n";
                 }
             }
-        });
+        }
     }
 }
