@@ -71,7 +71,7 @@ class ResourcesWatch
         }
         $request = new Request();
         $request->method = 'GET';
-        $request->pipeline = true;
+        $request->pipeline = false;
         $param['watch'] = 'true';
         $param['resourceVersion'] = $resourceVersion;
         $request->path = "{$api}?" . http_build_query($param);
@@ -80,32 +80,8 @@ class ResourcesWatch
             'authorization' => 'Bearer ' .$this->token,
         ];
         $this->client->send($request);
-//        go(function() use($api){
-//           if(!$this->client->ping()){
-//               $this->client->close();
-//               sleep(1);
-//               $this->client->connect();
-//               // 创建ConfigMap
-//               $now_version = json_decode((new KubeApi($this->domain,$this->port,$this->token))->request()->get($api, [
-//                   'query' => http_build_query([
-//                       'limit' => 15
-//                   ])
-//               ])->getBody()->getContents(),true);
-//               $resourceVersion = $now_version['metadata']['resourceVersion'];
-//               $request = new Request();
-//               $request->method = 'GET';
-//               $request->pipeline = true;
-//               $param['watch'] = 'true';
-//               $param['resourceVersion'] = $resourceVersion;
-//               $request->path = "{$api}?" . http_build_query($param);
-//               $request->headers = [
-//                   'host' => $this->client->host,
-//                   'authorization' => 'Bearer ' . $this->token,
-//               ];
-//               $this->client->send($request);
-//           }
-//        });
         while (true) {
+            sleep(1);
             if(($response = $this->client->read()) instanceof Response && strlen(strval($response->data))>=1){
                 try{
                     $callback($response);
