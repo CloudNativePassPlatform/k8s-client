@@ -81,7 +81,7 @@ class ResourcesWatch
         ];
         $this->client->send($request);
         while (true) {
-            sleep(1);
+            usleep(10000);
             if(($response = $this->client->read()) instanceof Response && strlen(strval($response->data))>=1){
                 try{
                     $callback($response);
